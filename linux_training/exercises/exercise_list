@@ -4,7 +4,6 @@
 ########################################################################
 
 
-
 ########################################################################
 # 1. Get some info
 #     -username 
@@ -23,17 +22,17 @@
 
 #########################################################################
 # 2. Create/Copy/Edit 
-#    -cd to your home dir
+#    -go to your home dir
 #    -remove the dir named "training"  independently from existence 
 #    -create a dir "training"
-#    -copy all content of "linux_training" under  the dir "training"
+#    -copy all content of "practice" under  the dir "training"
 #    -go to "training/practice/tasks1" dir
 #    -remove files with the extension xml, csv, and log 
 #    -remove all files with the name starting with "ba"
 #    -make all files executable
 #    -remove all content of "training" dir 
 #    -create a new file named "hello.txt" with the content "Hello World !"
-#    -copy all content of "linux_training" dir under the "training"
+#    -copy all content of "practice" dir under the "training"
 #    -list the content of "practice/tasks1"  directory with human-readable file size and sorted by last modified
 #    -list the content of "practice/tasks1"  directory with human-readable file size, sorted by last modified without group nor owner 
 #    -list the content of "practice/tasks1"  folder by separating entries by comma and in reverse order 
@@ -50,7 +49,7 @@
 #    - print the length of the longest line in /etc/passwd 
 #    - display the first 10 lines of /etc/passwd and /etc/netconfig lines
 #    - display the last 3 lines of /etc/netconfig and /etc/passwd files
-#    - create "project/scripts/python" and "project/assets/images" directories under "training" directory
+#    - create "project/scripts/python" and "project/assets/images" directories under "trainings" directory
 #    - create "project/scripts/python/test.py" and "project/assets/images/image.png" files    
 #    - go to "scripts" directory and rename "test.py" to "script.py"
 #    - rename "images" directory to "icons"
@@ -70,4 +69,52 @@
 #   -create "txt2" file inside "tmp" folder
 #   -open all permissions for "tmp" folder and its content 
 #   
-
+# 
+#
+# 4. Find 
+#   - get all items in the directory "training"
+#   - get all subdirectories in "training" dir
+#   - get subdirectories named "path"
+#   - get all files
+#   - get all filed named "setup"
+#   - create a copy of all files named "setup" as "setup_tst.bak"
+#   - rename all "*.pdf" files under "practice/tasks1" to "*.pdf_backup"
+#   - remove all subdirectories named "path"
+#   - remove all files named "setup"
+#   - how many hidden files do you have in your home 
+#   - how many hidden direotories do you have in your home 
+#
+#
+# 5. Grep 
+#  - get all lines from "practice/grepdata.txt"  containing phone numbere with an extension (x or X followed by 4 digit number)
+#  - get all lines beginning with three digits and followed by space 
+#  - get all lines containing date 
+#  - get all lines not beginning with capital "S" 
+#  - get all lines containing "CA" independently on case 
+#  - get all lines with e-mail addresses 
+#  - get all lines cotaining "de" as a complete word 
+#  - get all lines not containing the word "Sep."
+#
+# 
+# 6. Mix 
+#  - unpack "tasks2.tar.gz" under the/into "workdir" directory
+#  - get the count of directories under the "sw" folder containing "cst" in the name
+#  - get the largest directory inside the "sw" folder, print in "<full_path>: <largest_dir_name>" format
+#  - using "a" and "b" variables assigned to "cell_names.sh" and "techlib.tcl" values correspondingly (a="cell_names.sh" and b="techlib.tcl") form new filename called "techlib_names.sh"
+#  - find "dirn2" directory and make it removable for owner only
+#  - copy "limk_dir" to "cp_dir" by traversing all simlinks into directories 
+#  - remove all empty files within the tasks2 tree 
+#  - remove all empty files from the current folder only 
+#  - go to physical directory to which the "link_dir/tst_small" points to 
+#  - get filesize and filename pairs (up to second level including links and sizes of all subdirectories) from biggest to smallest into "file_size_list" file
+#  - merge "Xor.t_o_o.only" & "Xor.t_o_o_only.prop files from "tst" directory into dingle file called "xor.log". Multiple empty lines should be replaced with the single empty line in the resulting file 
+#  - print the resulting "xor.log" file's size at the end of the latter 
+#  - get lines matching "DDR" pattern from "tst/dir2/summary_report" in <line_number>: <matched_text> format; print the number of occurence of "S08" among the latter   
+#  - find all directories with 755 pemrissions under "taskdir" and provide write access to the group
+#  - calculate and display the disk usage of all files and directories under "taskdir" folder except the ones with "tcl" extension; write output into the file called "-abc.txt"
+#  - get content between the 10th and 20th lines inclusively from "-abc.txt"
+#  - copy "path" folder from "sw/sw_all1x/golden" into "tsty", "tst1", "tst_small" folders using single copy statement 
+#  - get all files containing "summary" in the name and archieve them 
+#  - get all files from "dir1/dirn2" directory with the names starting with "s" followed by any of the characters "a", "b", "d", "c", "I", "o" and ending with "st.sh"
+#  - get all files from "dir1/dirn2" starting with any two characters followed by "st" and ending with one or more occurences of any character
+#  - get all files from "dir1/dirn2" starting with either "l" or "s" characters not followed by one "i", "b" or "o", followed by any single character, followed by "t" and any other character afterwerds
