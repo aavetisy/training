@@ -1,0 +1,38 @@
+###################################################################################################################
+# read fruit name from stdin
+# print "I like <fruite_name>s"
+#   example: > apple
+#            > I like apples
+###################################################################################################################
+# read integer from stdin
+# print square and cube values
+#   example: > 3
+#            > Value: 3  Square: 9  Cube: 27
+###################################################################################################################
+# define 3 integer values (e.g. a, b, c)
+# print the value of expression (b*b - 4*a*c)
+###################################################################################################################
+# define 2 integer values (e.g. x, y)
+# print quotient and remainder of x/y division
+###################################################################################################################
+# read your first and last names into various vars.
+# print "I am <first name> <last name>." (including point at the end of sentence).
+###################################################################################################################
+# define an indexed array variable as ("zero", "one", "two", ..., " nine")
+# read integer from stdin
+# print corresponding name
+#   example: > 3
+#            > three
+###################################################################################################################
+# define an associative array as "4-digit-phone-number" -> "name" pairs.
+# read phone number from stdin
+# print corresponding name
+###################################################################################################################
+# print variable value only if it is defined
+###################################################################################################################
+# set any variable value to the current date.
+# print month name only
+###################################################################################################################
+# read name from stdin
+# print name's length
+###################################################################################################################

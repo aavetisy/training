@@ -1,0 +1,82 @@
+###################################################################################################################
+# Prepare input file below:
+#    aananiky:Armen:Ananikyan:12-34-56
+#    amangasa:Arthur:Mangasaryan:23-45-67
+#    amakarya:Anna:Makaryan:56-78-90
+# Make an awk script that will convert each line to the format below:
+#    dn: uid=Username, dc=example, dc=com
+#    cn: Firstname Lastname
+#    sn: Lastname
+#    telephoneNumber: Telephone_number
+###################################################################################################################
+
+###################################################################################################################
+# Use Ray.txt as an input file
+# Print some statistics:
+#    Number of words:                    aaa
+#    Number of lines:                    bbb
+#    Max words in the line:              ccc
+#    Min words in the non-empty line:    ddd
+#    Max line length:                    eee
+#    Min non-empty line length:          fff
+###################################################################################################################
+
+###################################################################################################################
+# Use Ray.txt as an input file
+# print each word in the line in back order, e.g. 
+#    'Marion?' called Louise.  --->    Louise. called 'Marion?'
+###################################################################################################################
+
+###################################################################################################################
+# Use Ray.txt as an input file
+# Gather strings into paragraphs (lines become a single line if not started with 2 or more whitespaces).
+###################################################################################################################
+
+###################################################################################################################
+# Use vcmp.transcript as an input file
+# print sums of CPU and REAL times from the strings like below
+#    CPU TIME = 15  REAL TIME = 3  LVHEAP = 2558/5682/5682  OPS COMPLETE = 8 OF 93  ELAPSED TIME = 1802
+###################################################################################################################
+
+###################################################################################################################
+# Prepare input file below:
+# ===============================================================================
+#       Name     |     Team      |   First Test  |  Second Test  |   Third Test
+# ===============|===============|===============|===============|===============
+#  Tom           | Red           |      5        |      17       |      22      
+#  Chin Chan     | Blue Skies    |      8        |      25       |      23
+#  Maria         | Green         |      4        |               |      24
+#  Don Carlos    | Red           |      -        |      34       |   failed
+#  Phu gong      | Green         |      4        |      23       |      18
+#  Ivan Demidoff | Blue Skies    |      7        |      16       |      23
+#  Joe           | Blue Skies    |      8        |      17       |       
+#  Nancy Ragen   | Green         |   absent      |      13       |      13
+#  Enrique       | Red           |      5        |      17       |      22      
+#  Mr.Morgan Jnr | Green         |      3        |    day off    |      23
+#  Guest Unknown | Red           |      5        |      45       |      13
+#  Sabatini      | Blue Skies    |      3        |      12       |      23
+# -------------------------------------------------------------------------------
+# 
+# Write an awk script that will compute the average score for every person in the list,
+# the average score for each test, and the average score for each team. If a score
+# is not positive integer, that means the person missed the test, and the score must not
+# become part of the average. 
+# 
+# Print the output to look like the following. In the list by name, the names must be
+# left-justified in a field of size 10 (hint: %-10s in printf), and the averages
+# must be seven characters wide with two digits to the right of the decimal point (%7.2f). 
+# 
+# Name             Average
+# ----             -------
+# Tom              xx.yy
+# Chin Chan        zz.uu
+# .........        .....
+# ------------------
+# Average for Test 1 : xx
+# Average for Test 2 : yy
+# Average for Test 3 : zz
+# -------------------
+# Average for Red Team:           rr.rrrr
+# Average for Green Team:         gg.gggg
+# Average for Blue Skies Team:    ss.ssss
+###################################################################################################################

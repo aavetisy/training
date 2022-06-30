@@ -1,0 +1,60 @@
+##########################################################################################################################
+# All exercises below do as interactive work in linux shell.
+# Use pipes and redirections if necessary.
+##########################################################################################################################
+
+##########################################################################################################################
+# 1. Get some info
+#    - username
+#    - hostname
+#    - current shell
+#    - date/time
+#    - date as "day-month-year"
+#    - date as seconds only
+#    - current directory
+#    - content of your home directory
+#    - existence of the file named ".bashrc" in your home directory
+#    - get statistics of your .bashrc file
+#    - how many chars/words/lines in your .bashrc file
+#    - how many hidden items (files, dirs, ...) do you have in your home ?
+#    - how many hidden directories do you have in your home ?
+#    - how many commands started with the letter "c" can you invoke ?
+#    - can you invoke the tool named "calibre". Whence ?
+##########################################################################################################################
+
+##########################################################################################################################
+# 2. Create/Copy/Edit
+#    - cd to your home dir
+#    - remove the dir named "training" independent of existence
+#    - create a dir "training"
+#    - copy all from the content of /amy/trainings/doc/shell to the dir "training"
+#    - copy the dir /amy/runs/aananiky/tc/licensing to the training
+#    - cd training
+#    - remove all files with the extensions txt and log
+#    - remove all files with the name started with "perf" and "Lesson"
+#    - make all files executable
+#    - remove all content
+#    - create a new file named "hello.txt" with the content "Hello World !"
+#    - copy all from /net/amy-dev1/scratch/performance/reg/tot_master/netlisting/HEN_based_netlisting_full_chip/baseline
+#    - rename all *.transcript files to the corresponding *.log
+#    - print the first 20 lines of each file
+#    - print the last 20 lines of each file
+##########################################################################################################################
+
+##########################################################################################################################
+# 3. Find
+#    - cd to your home dir
+#    - remove the dir named "training" independent of existence
+#    - create a dir "training"
+#    - copy the dir /wv/cal_dfm_qa/tot_master/calibre/dfm/3di to the training
+#    - find all items in the directory "training" 
+#    - cd training
+#    - find all items
+#    - find all subdirectories
+#    - find all subdirectories named CVS
+#    - find all files
+#    - find all files named "dofile"
+#    - copy all files named "dofile" to the corresponding "dofile.bak"
+#    - remove all subdirectories named CVS
+#    - remove all files named dofile
+##########################################################################################################################

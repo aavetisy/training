@@ -1,0 +1,217 @@
+#########################################################################################################
+# 1. explain the script below
+# 2. prepare function which will take <filename> as an arg and print file:
+#      line 1:    <content>
+#      line 2:    <content>
+#      ....................
+#########################################################################################################
+File=/etc/fstab
+{
+  read line1
+  read line2
+} < $File
+
+echo "The first line in the file $File :"
+echo "$line1"
+echo
+echo "The second line in the file $File :"
+echo "$line2"
+echo "===================================================================="
+
+#########################################################################################################
+# 1. explain the output for the script below
+# 2. add correct cycle for printing cubes
+#########################################################################################################
+pids=""
+for i in 1 2 3 4 5 6 7 8 9
+do
+  eval cube_$i=$(($i*$i*$i)) &
+  pids="$pids $!"
+done
+
+# while ?????
+# do
+#   ??????
+# done
+
+echo "$cube_1 $cube_2 $cube_3 $cube_4 $cube_5 $cube_6 $cube_7 $cube_8 $cube_9"
+echo "===================================================================="
+
+#########################################################################################################
+# 1. explain the difference between 2 echo-s
+# 2. prepare script to print the result of "ls -l" line-by-line (as-is for ls -l from shell)
+#########################################################################################################
+a=`ls -l`
+echo $a
+echo "$a"
+echo "===================================================================="
+
+#########################################################################################################
+# 1. explain the script below
+# 2. prepare function which prints type of received name (directory, file, link, ... nothing)
+#########################################################################################################
+testfunc()
+{
+  test $# -ne 1   && { echo -n "Invalid number of args - $#. " ; return 1 ; }
+  test "$1" = "H" && { echo -n "Hello "                        ; return 0 ; }
+  test "$1" = "W" && { echo -n "World "                        ; return 0 ; }
+  { echo -n "Invalid argument $1. "                            ; return 1 ; }
+}
+
+testfunc
+echo "Status: $?"
+
+testfunc a b c
+echo "Status: $?"
+
+testfunc s
+echo "Status: $?"
+
+testfunc H
+echo "Status: $?"
+
+testfunc W
+echo "Status: $?"
+
+echo "===================================================================="
+
+
+#########################################################################################################
+# 1. add echo commands after each line to print status variable ($?).
+#    Example:  "Return code for (( 5 > 4 )): <retcode>"
+#    Explain results. Uncomment the last line and think how to force it to work
+#########################################################################################################
+(( 0 ))
+(( 5 - 5 ))
+(( 1 ))
+(( 6 - 5 ))
+(( 5 > 4 ))
+(( 5 > 9 ))
+(( 5 - 5 ))
+(( 5 / 4 ))
+(( 1 / 2 ))
+# (( 1 / 0 ))
+
+#########################################################################################################
+# Prepare function to print the greatest common divisor of 2 integers.
+#########################################################################################################
+#gcd()
+#{
+  # check if number of reveived args is 2
+  # check if reveived args are positive integers
+  # use Euclid's algorithm to find out gcd. 
+  # while reminder != 0
+  #    reminder = dividend % divisor
+  #    divisor  --> dividend
+  #    reminder --> divisor
+#}
+
+#########################################################################################################
+# Print "Your name ? " and wait for answer from user. Give time limit 5 seconds
+# for answer, if no answer, print "you are late".
+#########################################################################################################
+
+
+
+#########################################################################################################
+# Explain results of pwd command
+#########################################################################################################
+(cd /bin ; pwd)
+pwd
+echo "===================================================================="
+
+#########################################################################################################
+# Uncomment the line below. Explain result.
+#########################################################################################################
+#exec echo Hello
+echo World
+echo "===================================================================="
+
+#########################################################################################################
+# suppose 
+#   1. "dofile" is any regression which can be invoked by the call "dofile <runtime>".
+#   2. max runtime for each regression is 5 second
+# prepare script which:
+#   1. run regressions with runtimes "3 8 4 11 2 6" in background
+#   2. wait 5 seconds for each regression, if regression in not finished, kill it.
+#   3. provide output like:
+#          - Regression <NNN> started
+#          - Regression <NNN> finished. Elapsed time xxx sec.
+#          - (or Regression <NNN> killed by max runtime 5 second.)
+#########################################################################################################
+dofile()
+{
+  local runtime
+  runtime=$1
+  while [ $runtime -ne 0 ]
+  do
+    sleep 1
+    runtime=$(($runtime - 1))
+  done
+}
+
+echo "===================================================================="
+
+#########################################################################################################
+# suppose any tool has the next options from command line
+#   -files <file1> <file2> ...  (files for reading)                        mandatory
+#   -nsteps <steps>             (positive integer)                         optional        10
+#   -output <logfile>           (create if not exist, otherwise append)    optional        output.log
+#   -verbose <boolean>          (case insensitive yes or no, 1 or 0)       optional        1
+#   -help                       print help text                            optional
+#
+# Provide as full as possible check of command line arguments.
+# Print corresponding error message and exit with error code,
+# or print command line arguments values, if success.
+#########################################################################################################
+
+echo "===================================================================="
+
+
+
+#########################################################################################################
+# 1. explain the script below
+# 2. set any var's value to "0-1-2-...-30"
+#########################################################################################################
+digits=`for i in  1 2 3 4 5 6 7 8 9
+        do
+          echo -n $i
+        done`
+echo $digits
+echo "===================================================================="
+
+#########################################################################################################
+# 1. explain the results
+# 2. update to have success in both cases
+#########################################################################################################
+echo '#!/bin/sh' > subscr
+echo 'echo "var is: $var"' >> subscr
+chmod 755 subscr
+var="Hello World !"
+
+./subscr
+echo "===================================================================="
+
+. ./subscr
+echo "===================================================================="
+
+
+#########################################################################################################
+# 1. explain the commands below
+# 2. prepare function which takes 3 doubles: $1 as a golden, $2 as a current and $3 as a tolerance.
+#    Return:  0  -  if abs(golden-current) <= abs(golden*tolerance),  1  -   otherwise
+# Hint: man bc
+#########################################################################################################
+echo "scale=3 ; 2.3 * 5.41" | bc -q
+echo "scale=2 ; 2 / 3.14" | bc -q
+echo "5.14 > 3.15" | bc -q
+echo "5.14 < 3.15" | bc -q
+echo "===================================================================="
+
+#########################################################################################################
+# The same as above using awk. Try to compare both methods runtimes. (e.g. by comparing 10000000 values)
+#########################################################################################################
+
+#########################################################################################################
+# prepare function which takes 2 dates in format mm/dd/yyyy and print number of days between them
+#########################################################################################################
