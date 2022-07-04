@@ -44,7 +44,13 @@
 ###################################################################################################################
 # read name from stdin
 # print name's length
+
 ###################################################################################################################
+# read number from stdin
+# print "Passed" if number>2 and number <8, and print "Failed" in other cases otherwise
+# It is needed:
+#   a) solution with if->else
+#   b) solution without  if->else
 
 ###################################################################################################################
 # Using a for loop, save lines 2-3 of each file in the docs folder as a new file with a name that
@@ -55,6 +61,10 @@
 # Final results should be: ls ./docs
 #			    docs/echo/echo-copy.txt
 #			    docs/male/email-copy.txt
-#			    docs/names/onboarding-copy.txt  
-###################################################################################################################
+#			    docs/names/onboarding-copy.txt 
 
+###################################################################################################################
+# Create a simple calculator that prompts the user to enter two integers and performs basic arithmetic operations such as addition,
+# subtraction, multiplication and division.
+# Hint: Use the "select" control
+ 
