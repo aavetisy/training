@@ -1,0 +1,315 @@
+#!/bin/bash
+
+##########################################################################################################################################
+# ==============================
+# Special Shell Variables
+# ==============================
+# $0            The name of the command being executed.
+#               For shell scripts, this is the path with which it was invoked.
+# $n            These variables correspond to the arguments with which a script was invoked.
+#               Here n is a positive decimal number corresponding to the position of an argument
+#               (the first argument is $1, the second argument is $2, and so on).
+# $#            Number of command line arguments (excluding script/command name).
+# $*            Command line arguments passed to script as string
+# $@            Command line arguments passed to script as list
+# $?            The exit status of the last command executed.
+# $$            The process number of the current shell. For shell scripts,
+#               this is the process ID under which they are executing.
+# $!            The process number of the last background command.
+#
+# ==============================
+# Internal Variables
+# ==============================
+# HOME          user's home directory
+# HOSTNAME      system host name
+# HOSTTYPE      host type
+# IFS           internal field separator
+# MACHTYPE      machine type
+# OSTYPE        operating system type
+# PATH          path to binaries
+# PIPESTATUS    array variable holding exit status(es) of last executed foreground pipe.
+# PWD           path to current directory
+#       (more about internal variables - "Shell Variables" in bash manual)
+#
+# ==============================
+# env command
+# ==============================
+##########################################################################################################################################
+
+#if [ $# -ne 1 ]
+#then
+#  echo "Please specify example #"
+#  exit
+#fi
+
+taskN=$1
+case $taskN in 
+
+##########################################################################################################################################
+1)
+##########################################################################################################################################
+# $0 - command
+
+echo "Command:            $0"
+echo "Command name:       `basename $0`"
+echo "Command path:       `dirname $0`"
+
+##########################################################################################################################################
+;; 2)
+##########################################################################################################################################
+# $# - number of command line args (args with whitespaces should be quoted)
+
+echo "Received $# args."
+
+##########################################################################################################################################
+;; 3)
+##########################################################################################################################################
+# $<n> - n-th command line arg
+
+echo "\$1 = $1"
+echo "\$2 = $2"
+echo "\$3 = $3"
+echo "\$4 = $4"
+echo "\$5 = $5"
+echo ". . . . ."
+
+##########################################################################################################################################
+;; 4)
+##########################################################################################################################################
+# $* - list of commad line arguments passed to script as string (feel diff between quoted and non-quoted $*)
+
+for arg in "$*"
+do
+  echo $arg
+done
+
+echo "---------------"
+
+for arg in $*
+do
+  echo $arg
+done
+
+##########################################################################################################################################
+;; 5)
+##########################################################################################################################################
+# $@ - commad line arguments passed to script as list (feel diff between quoted and non-quoted $@,
+#                                                      in case if one of arg contains whitespace)
+
+for arg in "$@"
+do
+  echo $arg
+done
+
+echo "---------------"
+
+for arg in $@
+do
+  echo $arg
+done
+
+# So always use quoted vars (to prevent word splitting).
+
+##########################################################################################################################################
+;; 6)
+##########################################################################################################################################
+# shift command
+
+echo $*
+shift 
+echo $*
+shift 
+echo $*
+shift
+echo $*
+
+
+##########################################################################################################################################
+;; 7)
+##########################################################################################################################################
+# iterate through command line args using shift command
+
+# [ "$1" ]
+# [ $# -ne 0 ]
+
+while [ $# -ne 0 ]
+do
+  echo $1
+  shift
+done
+
+echo "== $@ =="
+
+##########################################################################################################################################
+;; 8)
+##########################################################################################################################################
+# exit status $?
+
+./no_such_command  > /dev/null 2>&1
+echo "Exit status for no_such_command:  $?"
+
+echo "============================================="
+
+ls nofile   > /dev/null 2>&1
+echo "Exit status for ls:  $?"
+
+echo "============================================="
+
+awk -d ex   > /dev/null 2>&1
+echo "Exit status for awk:  $?"
+
+echo "============================================="
+
+echo '#!/bin/sh' > subscript
+echo 'exit $#' >> subscript
+chmod 755 subscript
+
+./subscript
+if [ $? -ne 0 ]
+then
+  echo "Subscript failed."
+else
+  echo "Subscript passed."
+fi
+
+echo "============================================="
+
+./subscript hello
+if [ $? -ne 0 ]
+then
+  echo "Subscript failed."
+else
+  echo "Subscript passed."
+fi
+
+##########################################################################################################################################
+;; 9)
+##########################################################################################################################################
+# be careful at using $? in pipes, because $? reflects not whole pipe
+# status, but status of the last command executed in the pipe.
+
+./no_command | ls
+echo $?
+
+##########################################################################################################################################
+;; 10)
+##########################################################################################################################################
+# process id-s $$ and $!
+
+ls -l > /dev/null 2>&1 &
+echo "This script pid is $$"
+echo "Last bg command pid is $!"
+
+ps -p $$
+
+##########################################################################################################################################
+;; 11)
+##########################################################################################################################################
+# HOSTNAME      system host name
+# HOSTTYPE      host type
+# MACHTYPE      machine type
+# OSTYPE        operating system type
+
+echo "Host name:   $HOSTNAME"
+echo "Host type:   $HOSTTYPE"
+echo "Machine:     $MACHTYPE"
+echo "OS:          $OSTYPE"
+
+
+##########################################################################################################################################
+;; 12)
+##########################################################################################################################################
+# HOME          user's home directory
+# PWD           path to current directory
+# PATH          path to binaries
+
+echo "User's home:                     $HOME"
+echo "Working dir:                     $PWD"
+echo "Working dir (using pwd command): `pwd`"
+echo "PATH variable:                   $PATH"
+
+##########################################################################################################################################
+;; 13)
+##########################################################################################################################################
+# PIPESTATUS    array variable holding exit status(es) of last executed foreground pipe.
+
+./no_command | ls
+echo ${PIPESTATUS[*]}
+
+./no_command | ls nofile | wc -l
+pipestatus=${PIPESTATUS[@]}
+
+i=1
+for status in $pipestatus
+do
+  if [ $status -eq 0 ]
+  then
+    echo "${i}-th command passed."
+  else
+    echo "${i}-th command failed."
+  fi
+  ((i++))
+done
+
+##########################################################################################################################################
+;; 14)
+##########################################################################################################################################
+# IFS           internal field separator
+#               determines word boundaries in character strings.
+#               default value is whitespace (space, tab, newline).
+
+pathnames="path_1:path_2:path_3:path_4"
+
+echo $pathnames
+
+IFS=":"
+echo $pathnames
+
+IFS=":_"
+echo $pathnames
+
+##########################################################################################################################################
+;; 15)
+##########################################################################################################################################
+# IFS can be also used to join words with other than whitespace character.
+# (command "set" is to read string and put it into $1, $2, ...)
+
+set word_1 word_2 word_3 word_4
+echo $1
+echo $3
+echo "$*"
+
+IFS=":"
+echo "$*"
+
+##########################################################################################################################################
+;; 16)
+##########################################################################################################################################
+# IFS treats whitespace differently than other characters.
+
+var=" a  b c   "
+echo $var
+
+IFS=:
+var=":a::b:c:::" # but using ":" instead of whitespace
+echo $var
+
+##########################################################################################################################################
+;; 17)
+##########################################################################################################################################
+# IFS example - iterate through PATH env variable
+
+IFS=:
+for pathname in $PATH
+do
+  echo $pathname
+done
+
+##########################################################################################################################################
+;; 18)
+##########################################################################################################################################
+env
+
+##########################################################################################################################################
+;; *) echo "Invalid task number" ; exit ;;
+esac
