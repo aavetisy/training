@@ -4,23 +4,54 @@
 #   example: > apple
 #            > I like apples
 
+#!/bin/bash
+
+read fruite_name
+echo "I like ${fruite_name}"
 ###################################################################################################################
 # read integer from stdin
 # print square and cube values
 #   example: > 3
 #            > Value: 3  Square: 9  Cube: 27
 
+#!/bin/bash
+
+declare -i number
+read number
+echo -n "Value: ${number} "
+echo -n "Square: $(( number**2 )) "
+echo "Cube: $(( number**3 ))"
+
 ###################################################################################################################
 # define 3 integer values (e.g. a, b, c)
 # print the value of expression (b*b - 4*a*c)
+
+#!/bin/bash
+a=2
+b=3
+c=5
+value=$(( b*b-4*a*c ))
+echo "The value of (b*b - 4*a*c) expression: ${value}"
 
 ###################################################################################################################
 # define 2 integer values (e.g. x, y)
 # print quotient and remainder of x/y division
 
+#!/bin/bash
+x=9
+y=4
+echo "Quotient of x/y division: $(( x/y ))"
+echo "Remainder of x/y division $(( x%y ))"
 ###################################################################################################################
 # read your first and last names into various vars.
 # print "I am <first name> <last name>." (including point at the end of sentence).
+
+#!/bin/bash
+
+read -p "Enter your first name: " FNAME
+read -p "Enter your last name: " LNAME
+
+echo "I am ${FNAME} $LNAME."
 
 ###################################################################################################################
 # define an indexed array variable as ("zero", "one", "two", ..., " nine")
@@ -29,14 +60,46 @@
 #   example: > 3
 #            > three
 
+#!/bin/bash
+NUMBERS=("zero" "one" "two" "three" "four" "five" "six" "seven" "eight" "nine")
+
+declare -i num
+read -p "Enter an integer beetwen 0 and 9: " num
+
+if [ ${num} -ge 0 ] && [ ${num} -le 9 ]; then
+    echo "${NUMBERS[$num]}"
+else
+    echo "Invalid number"
+fi
+
 ###################################################################################################################
 # define an associative array as "4-digit-phone-number" -> "name" pairs.
 # read phone number from stdin
 # print corresponding name
 
+#!/bin/bash
+
+declare -A PHONE_NUMBERS
+PHONE_NUMBERS[1231]=name1
+PHONE_NUMBERS[1232]=name2
+PHONE_NUMBERS[1233]=name3
+PHONE_NUMBERS[1234]=name4
+PHONE_NUMBERS[1235]=name5
+
+read -p "Enter a phone number: " phone
+name=${PHONE_NUMBERS[$phone]}
+if [ -n "${name}" ]; then
+    echo "$name"
+else
+    echo "The phone number not found"
+fi
 ###################################################################################################################
 # print value of 'STATUS' variable only if it is defined
 
+#!/bin/bash
+if [ -n "${STATUS}" ]; then
+    echo ${STATUS}
+fi
 ###################################################################################################################
 # set any variable value to the current date.
 # print month name only
