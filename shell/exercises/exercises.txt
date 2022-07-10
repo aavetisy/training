@@ -7,7 +7,7 @@
 #!/bin/bash
 
 read fruite_name
-echo "I like ${fruite_name}"
+echo "I like ${fruite_name}s"
 ###################################################################################################################
 # read integer from stdin
 # print square and cube values
