@@ -5,6 +5,12 @@
 #      Hello arthur
 #      Hello anna
 #############################################################################################################
+#!/bin/bash
+
+for name in $@
+do
+    echo "Hello ${name}"
+done
 
 #############################################################################################################
 # script should take two numbers from the cmd line and print all the numbers from the first to the
@@ -12,31 +18,92 @@
 # e.g. <script>  3 7
 #      3 4 5 6 7
 #############################################################################################################
+#!/bin/bash
+for i in `seq $1 $2`
+do
+    echo -n "$i "
+done
+
+echo
 
 #############################################################################################################
 # script should print "Good morning",  "Good afternoon" or "Good evening" depending on the time of running.
 # Hint: use the variable "date" below to analize:
 #       date=`date "+%H"`
 #############################################################################################################
+#!/bin/bash
+
+hour=`date "+%H"`
+if [ "$hour" -ge 6 ] and [ "$hour" -lt 12 ]; then
+    echo "Good morning"
+elif [ "$hour" -ge 12 ] and [ "$hour" -lt 18 ]; then
+    echo "Good afternoon"
+else
+    echo "Good evening"
+fi
 
 #############################################################################################################
 # script should take number of seconds from the command line and convert it to the hours:minutes:seconds
 # e.g. <script> 12345
 #      12345 seconds in hours:minutes:seconds is 3:25:45
 #############################################################################################################
+#!/bin/bash
+
+declare -i seconds
+seconds=$1
+
+hours=$(( seconds/3600 ))
+min=$(( (seconds%3600)/60 ))
+sec=$(( (seconds%3600)%60 ))
+
+echo "${hours}:${min}:${sec}"
 
 #############################################################################################################
 # script should take <dirname> from the command line, check <dirname> doesn't exist and create <dirname>
 #############################################################################################################
+#!/bin/bash
 
+DIRNAME=$1
+if [ ! -d "${DIRNAME}" ]; then
+    mkdir ${DIRNAME}
+else
+    echo "${DIRNAME} already exists"
+fi
 
 #############################################################################################################
 # print sum of numbers received from the command line
 #############################################################################################################
+#!/bin/bash
+
+sum=0
+for i in $@
+do
+    sum=$(( sum+i ))
+done
+
+echo "sum of numbers is: ${sum}"
 
 #############################################################################################################
 # print max and min values of numbers received from the command line
 #############################################################################################################
+#!/bin/bash
+
+max=$1
+min=$1
+
+for i in $@
+do
+    if [ "${i}" -gt "${max}" ]; then
+        max=${i}
+    fi
+    
+    if [ "${i}" -lt "${min}" ]; then
+        min=${i}
+    fi
+done
+
+echo "Maximum is: ${max}"
+echo "Minimum is: ${min}"
 
 #############################################################################################################
 # print squares and cubes for the numbers from 0 to 50
@@ -48,6 +115,14 @@
 # Hint: use
 #    printf "%-10s%-10s%-10s\n" nmbr, square, cube
 # for more nice output
+
+#!/bin/bash
+for i in {0..50}
+do
+    square=$(( i**2 ))
+    cube=$(( i**3 ))
+    printf "%-10s%-10s%-10s\n" $i $square $cube
+done
 #############################################################################################################
 
 #############################################################################################################
@@ -74,4 +149,20 @@
 #############################################################################################################
 # take 2 integers from stdin. Print max of them. Exit if 2 integers are same.
 #############################################################################################################
+#!/bin/bash
+declare -i a
+declare -i b
+
+while [ 1 ]
+do
+    read -p "Enter the first number: " a
+    read -p "Enter the second number:" b
+    if [ "$a" -gt "$b" ]; then
+        echo "Maximum is: $a"
+    elif [ "$a" -lt "$b" ]; then
+        echo "Maximum is: $b"
+    else
+        break
+    fi
+done
 
