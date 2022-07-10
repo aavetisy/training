@@ -104,9 +104,19 @@ fi
 # set any variable value to the current date.
 # print month name only
 
+#!/bin/bash
+
+VAR=`date`
+echo $VAR | cut -d' ' -f 2
+
 ###################################################################################################################
 # read name from stdin
 # print name's length
+
+#!/bin/bash
+
+read -p "Enter your name" NAME
+echo "Name's length is: ${#NAME}"
 
 ###################################################################################################################
 # read number from stdin
@@ -114,6 +124,21 @@ fi
 # It is needed:
 #   a) solution with if->else
 #   b) solution without  if->else
+
+#####   Solution a
+#!/bin/bash
+declare -i number
+read -p "Enter a number: " number
+[ $number -gt 2 ] && [ $number -lt 8 ] && echo Passed || echo Failed
+
+#####   Solution b
+declare -i number
+read -p "Enter a number: " number
+if [ $number -gt 2 ] && [ $number -lt 8 ] ; then
+    echo "Passed"
+else
+    echo "Failed"
+fi
 
 ###################################################################################################################
 # Using a for loop, save lines 2-3 of each file in the docs folder as a new file with a name that
@@ -126,8 +151,54 @@ fi
 #			    docs/male/email-copy.txt
 #			    docs/names/onboarding-copy.txt 
 
+#!/bin/bash
+
+for FILE in `ls ./docs/*`
+do
+    DIR_NAME=$(dirname $FILE)
+    FILE_NAME=$(basename $FILE)
+    NAME=${FILE_NAME%.*}
+    NEW_DIR=$DIR_NAME/$NAME
+    NEW_FILE=${NAME}-copy.txt
+    mkdir -p $NEW_DIR
+    cat $FILE | head -3 | tail -2  > $NEW_DIR/$NEW_FILE
+done
+
 ###################################################################################################################
 # Create a simple calculator that prompts the user to enter two integers and performs basic arithmetic operations such as addition,
 # subtraction, multiplication and division.
 # Hint: Use the "select" control
  
+ #!/bin/bash
+ select opt in add subtract multiply divide quit; do
+
+    case $opt in
+        add)
+            read -p "Enter the first number: " n1
+            read -p "Enter the second number: " n2
+            echo "$n1 + $n2 = $(($n1+$n2))"
+            ;;
+        subtract)
+            read -p "Enter the first number: " n1
+            read -p "Enter the second number: " n2
+            echo "$n1 - $n2 = $(($n1-$n2))"
+            ;;
+        multiply)
+            read -p "Enter the first number: " n1
+            read -p "Enter the second number: " n2
+            echo "$n1 * $n2 = $(($n1*$n2))"
+            ;;
+        divide)
+            read -p "Enter the first number: " n1
+            read -p "Enter the second number: " n2
+            echo "$n1 / $n2 = $(($n1/$n2))"
+            ;;
+        quit)
+            break
+            ;;
+        *)
+            echo "Invalid option $opt"
+            ;;
+    esac
+done
+
