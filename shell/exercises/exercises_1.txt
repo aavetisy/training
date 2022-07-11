@@ -164,7 +164,19 @@ done
 # script should copy given directory to the current directory with renaming all file/dir names which contain 
 # "-" to "_"  (e.g.   test-file-1  ->  test_file_1)
 #############################################################################################################
+#!/bin/bash
 
+source_dir=$1
+# here should be a code for existance checking
+dest_dir=`basename ${source_dir}`
+dest_dir=${dest_dir//-/_}
+
+mkdir ${dest_dir}
+for i in `ls ${source_dir}`
+do
+    name=${i//-/_}
+    cp -r ${source_dir}/${i} $dest_dir/${name}
+done
 #############################################################################################################
 # take <dirname> from the command line (e.g. a/b/c/d/regdir), Check a/b/c/d/regdir exists
 # check there is no the directory regdir in current diirectory. If yes - exit.
@@ -175,7 +187,38 @@ done
 #   - if item is file - create corresponding link in regdir
 # NOTE: the "training/linux_training/practice/tasks2/taskdir/dir1" can be used for testing
 #############################################################################################################
+if [ $# -ne 1 ]; then
+    echo "Expected one argument" 
+    exit 1
+fi
 
+SOURCE=$1
+if [ ! -d "${SOURCE}" ]; then
+    echo "the directory $SOURCE does not exists"
+    exit 1
+fi
+
+DIRNAME=`basename ${SOURCE}`
+if [ -d ./${DIRNAME} ]; then
+    echo "./${DIRNAME} already exists."
+    exit 1
+fi
+
+mkdir ${DIRNAME}
+
+for i in $(find ${SOURCE} -name "*")
+do
+    NAME=${i/$SOURCE/}
+
+    if [ -d ${i} ]; then
+        mkdir -p ./${DIRNAME}/${NAME}
+        continue
+    fi
+
+    if [ -f ${i} ]; then
+        ln -sf ${i} ./${DIRNAME}/${NAME}
+    fi
+done
 
 #############################################################################################################
 # take 2 integers from stdin. Print max of them. Exit if 2 integers are same.
