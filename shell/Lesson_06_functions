@@ -1,0 +1,349 @@
+#!/bin/bash
+
+##########################################################################################################################################
+# Functions
+#    function function_name() {                              function_name () {
+#      command                                                 command
+#      ...                                                     ...
+#    }                                                       }
+#
+# Function definition must precede the first call to it. No way to "declare" the function.
+# Function body should not be empty
+# Nested functions allowed, but not useful.
+# Same name definitions allowed, the latest definition works.
+##########################################################################################################################################
+
+if [ $# -ne 1 ]
+then
+  echo "Please specify example #"
+  exit
+fi
+taskN=$1
+case $taskN in 
+
+##########################################################################################################################################
+1)
+##########################################################################################################################################
+# call defined function
+hello_func() {
+  echo -n "Hello "
+}
+
+world_func() {
+  echo "World !"
+}
+
+hello_func
+world_func
+
+##########################################################################################################################################
+;; 2)
+##########################################################################################################################################
+# args passed to function
+
+print_args()
+{
+  echo "Function received $# arguments"
+  for (( i = 1 ; i <= $# ; i++ ))
+  do
+    echo "\$$i = ${!i}"
+  done
+  echo "============================================="
+}
+
+print_args
+print_args Hello
+print_args "Hello World"
+print_args Hello "Wonderful World"
+print_args a b c d e f g h
+
+##########################################################################################################################################
+;; 3)
+##########################################################################################################################################
+# print args using shift
+
+print_args() {
+  while [ $# -gt 0 ]
+  do
+    echo $1
+    shift
+  done
+}
+
+print_args a b c d e f "" g h
+
+
+##########################################################################################################################################
+;; 4)
+##########################################################################################################################################
+# returning value by "return" statement may be explicitly specified, otherwise it is the exit status
+# of the last command in the function (0 if successful, non-zero error code if not).
+# returned value is available through $? (1-byte unsigned int only)
+
+f_retval()
+{
+  return $1
+}
+
+#i=-5
+i=0
+
+while [ $i -lt 260 ]
+do
+  f_retval $i
+  echo "\"return $i\"  -  \"\$? = $?\""
+  i=$(($i+1))
+done
+
+##########################################################################################################################################
+;; 5)
+##########################################################################################################################################
+# function below works properly for unsigned integers 0-255 only
+f_max()
+{
+  local max
+  max=$1
+  while :
+  do
+    shift
+    if [ -z $1 ] 
+    then
+      break
+    fi
+
+    if [ $1 -gt $max ]
+    then
+      max=$1
+    fi
+  done
+  return $max
+}
+
+#f_max 12 65 3 45 2 260
+f_max 12 65 3 45 2
+max=$?
+echo "Max value is: $max"
+
+##########################################################################################################################################
+;; 6)
+##########################################################################################################################################
+# updated function works OK (using echo <returning value>)
+
+f_max()
+{
+  local max
+  max=$1
+  while :
+  do
+    shift
+    if [ -z $1 ] 
+    then
+      break
+    fi
+
+    if [ $1 -gt $max ]
+    then
+      max=$1
+    fi
+  done
+  echo $max
+}
+
+max=`f_max 10000012 10000065 1000003 10000045 1000002`
+echo "Max value is: $max"
+
+echo "Max value is: `f_max -10000012 -10000065 -1000003 -10000045 -10000048`"
+
+##########################################################################################################################################
+;; 7)
+##########################################################################################################################################
+# other example of getting returned value using echo
+mult()
+{
+  echo $(( $1*$2 ))
+}
+
+z=`mult 3 4`
+echo $z
+
+##########################################################################################################################################
+;; 8)
+##########################################################################################################################################
+# can use global variables instead of returning
+
+mult()
+{
+  m=$(( $1*$2 ))
+}
+
+mult 3 4
+echo $m
+
+##########################################################################################################################################
+;; 9)
+##########################################################################################################################################
+# recursion
+factorial()
+{
+  n=$1
+  if [ $n -eq 1 ]
+  then
+    echo 1
+  else
+    echo $(( $n*`factorial $(( $n-1 ))` )) 
+  fi
+}
+
+factorial 4
+
+##########################################################################################################################################
+;; 10)
+##########################################################################################################################################
+# input redirection
+read_file()
+{
+  while read name value
+  do
+    echo "Value of $name is $value."
+  done
+}
+
+read_file < performance
+
+echo "performance 67.8" | read_file
+
+
+##########################################################################################################################################
+;; 11)
+##########################################################################################################################################
+# input/output  echo and printf
+
+for i in 1 10 100 1000 10000 100000
+do
+  echo "$i $(($i*$i))"
+done
+
+echo "============================================="
+
+for i in 1 10 100 1000 10000 100000
+do
+  printf "%-10s %-10s\n" $i $(($i*$i))
+done
+
+echo "============================================="
+
+for i in 1 10 100 1000 10000 100000
+do
+  printf "%10s %-10s\n" $i $(($i*$i))
+done
+
+##########################################################################################################################################
+;; 12)
+##########################################################################################################################################
+# output redirections    >, >> and tee
+
+rm -f now logfile
+
+date > now
+cat now
+
+echo "============================================="
+
+{
+  date
+  whoami
+} > logfile
+cat logfile
+
+echo "============================================="
+
+x="Hello"
+x="$x `date`"
+
+date >> now
+cat now
+
+echo "============================================="
+
+rm -f now
+date | tee now
+
+echo "============================================="
+
+date | tee -a now
+
+
+##########################################################################################################################################
+;; 13)
+##########################################################################################################################################
+# input redirections,  "Here" document.
+
+while read s
+do
+  echo $s
+done < now
+
+echo "-----------------------------------"
+
+# print "Here" doc
+cat << BigDoc
+Many UNIX programs are interactive and read input from the user.
+To use such programs in shell scripts, you need to provide them
+with input in a noninteractive manner. Also, scripts often need
+to ask the user for input in order to execute commands correctly.
+BigDoc
+
+echo "-----------------------------------"
+
+# assign "Here" doc to variable
+var=$(cat << BigDoc
+Many UNIX programs are interactive and read input from the user.
+To use such programs in shell scripts, you need to provide them
+with input in a noninteractive manner. Also, scripts often need
+to ask the user for input in order to execute commands correctly.
+BigDoc
+)
+echo "$var"
+
+echo "-----------------------------------"
+# assign "Here" doc to variable - other way (-r backslash is part of line.
+#                                            -d '' newline is part of line)
+read -r -d '' var << BigDoc
+Many UNIX programs are interactive and read input from the user.
+To use such programs in shell scripts, you need to provide them
+with input in a noninteractive manner. Also, scripts often need
+to ask the user for input in order to execute commands correctly.
+BigDoc
+
+
+echo "-----------------------------------"
+# feel diff
+echo "$var"
+echo "-----------------------------------"
+echo $var
+
+##########################################################################################################################################
+;; 14)
+##########################################################################################################################################
+# file descriptors
+
+exec 4<performance
+exec 3<performance_baseline
+
+while [ 1 ]
+do
+  read -u 3 name_golden time_golden
+  read -u 4 name_current time_current
+  if [ "$name_golden" = "" ]
+  then
+    break
+  fi
+  printf "%-50s%-30s%-20s\n" "Feature: $name_golden"  "Baseline value: $time_golden"  "Current value: $time_current"
+done
+
+exec 3>&-
+exec 4>&-
+
+##########################################################################################################################################
+;; *) echo "Invalid task number" ; exit ;;
+esac
