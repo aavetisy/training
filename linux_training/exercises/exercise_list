@@ -38,7 +38,6 @@
 #    -list the content of "practice/tasks1"  directory in a single column by file extension
 #    -list all hidden files in "practice/tasks2/taskdir"  directory
 #    -get the length of the longest line in "tasks1/people.csv" file
-#    -rename all "*.pdf" files under "task1" dir to "*.pdf_backup"
 #    -transfer the "practice/tasks2/taskdir/dir1" directory into "practice/tasks2/taskdir/sw" 
 #    - display the list of all users in a system registered in /etc/passwd file and their login shell 
 
