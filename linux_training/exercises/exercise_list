@@ -15,10 +15,9 @@
 #     -current directory 
 #     -content of your home directory 
 #     -existence of the file named ".bashrc" in your home directory 
-#     -get statistics of your .bashrc file 
+#     -get information of your .bashrc file 
 #     -how many chars/words/lines are in your .bashrc file 
-#     -how many hidden items (files, dirs, ...) do you have in your home 
-#     -how many hidden directories do you have in your home 
+#     -get the hidden items (files, dirs, ...) do you have in your home 
 
 #########################################################################
 # 2. Create/Copy/Edit 
